@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:id="@+id/tvSound"
+    tools:text="Default"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/smallPadding"
+    android:textSize="@dimen/smallTextSize"
+    style="@style/TextStyle"
+    xmlns:tools="http://schemas.android.com/tools" />

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="alarm_sounds">
+        <item>Alarm</item>
+        <item>Electronic</item>
+        <item>Chinese</item>
+        <item>Nice wake up</item>
+        <item>Ringing classic</item>
+        <item>Get up</item>
+    </string-array>
+</resources>

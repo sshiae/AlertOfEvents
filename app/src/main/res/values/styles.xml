@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default text style -->
+    <style name="TextStyle">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+    </style>
+
+    <!-- Title text style -->
+    <style name="TitleTextStyle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/titleSize</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:paddingStart">@dimen/startTextTitlePadding</item>
+    </style>
+
+    <!-- Default edit text style -->
+    <style name="EditTextStyle">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:paddingBottom">@dimen/editTextPadding</item>
+        <item name="android:backgroundTint">@color/colorGray</item>
+        <item name="android:lineSpacingExtra">@dimen/editTextLineSpacingExtra</item>
+    </style>
+
+    <!-- Edit text style for time -->
+    <style name="EditTextTimeStyle">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+    </style>
+
+    <!-- Masked edit text style -->
+    <style name="MaskedTextStyle">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:maxLength">2</item>
+        <item name="android:inputType">number</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/largeTextSize</item>
+    </style>
+
+    <!-- Switch compat text style -->
+    <style name="SwitchCompatTextStyle">
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:textSize">@dimen/mediumTextSize</item>
+    </style>
+
+    <!-- Default style for button -->
+    <style name="ButtonStyle">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:textSize">@dimen/buttonTextSize</item>
+        <item name="android:background">@drawable/rounded_button</item>
+    </style>
+</resources>

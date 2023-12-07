@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_calendar_events"
+        android:title="@string/calendarOfEventsMenuItemTitle"
+        android:icon="@drawable/ic_calendar_foreground"/>
+    <item
+        android:id="@+id/navigation_create_event"
+        android:title="@string/createEventMenuItemTitle"
+        android:icon="@drawable/ic_create_event_foreground"/>
+    <item
+        android:id="@+id/navigation_settings"
+        android:title="@string/settingsMenuItemTitle"
+        android:icon="@drawable/ic_settings_foreground"/>
+</menu>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorBackground">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/rlButtons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="@dimen/smallMargin">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/cardViewMargin"
+            app:cardElevation="2dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/llEventNameSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/defaultPadding"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tvEventName"
+                            style="@style/TitleTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="@string/eventNameLabel" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tietEventName"
+                            style="@style/EditTextStyle"
+                            android:textColorHint="@color/colorText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/largeTextSize"
+                            android:hint="@string/eventNameHintText" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llDescriptionSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sectionMarginTop"
+                        android:orientation="vertical"
+                        android:padding="@dimen/defaultPadding"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/llEventNameSection">
+
+                        <TextView
+                            android:id="@+id/tvDescription"
+                            style="@style/TitleTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="@string/descriptionLabel" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tietDescription"
+                            style="@style/EditTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorTextLight"
+                            android:textColorHint="@color/colorTextLight"
+                            android:textSize="@dimen/smallTextSize"
+                            android:hint="@string/desciptionHintText"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llDateSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sectionMarginTop"
+                        android:orientation="vertical"
+                        android:padding="@dimen/defaultPadding"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/llDescriptionSection">
+
+                        <TextView
+                            android:id="@+id/tvDate"
+                            style="@style/TitleTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="@string/dateLabel" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tietDate"
+                            android:backgroundTint="@color/colorGray"
+                            android:fontFamily="@font/gilroy_semibold"
+                            android:lineSpacingExtra="@dimen/editTextLineSpacingExtra"
+                            android:paddingBottom="@dimen/editTextPadding"
+                            android:textColor="@color/colorText"
+                            android:textColorHint="@color/colorText"
+                            android:textSize="@dimen/smallTextSize"
+                            android:maxLength="19"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="24.07.2004 12:50:00" />
+
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clRemindSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sectionMarginTop"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/defaultPadding"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/llDateSection">
+
+                        <TextView
+                            android:id="@+id/tvRemindMe"
+                            style="@style/SwitchCompatTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/remindMeLabel"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/scRemindMe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:thumb="@drawable/thumb"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:track="@drawable/track" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <Button
+            android:id="@+id/btnEvent"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/defaultMargin"
+            android:layout_marginEnd="@dimen/defaultMargin"
+            android:layout_marginBottom="@dimen/defaultMargin"
+            tools:text="@string/createEventButtonText" />
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/loading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

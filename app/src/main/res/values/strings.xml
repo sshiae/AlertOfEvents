@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- Create Event Fragment -->
+    <string name="eventNameLabel">Event Name</string>
+    <string name="descriptionLabel">Description</string>
+    <string name="dateLabel">Date</string>
+    <string name="remindMeLabel">Remind Me</string>
+    <string name="createEventButtonText">Create Event</string>
+    <string name="createEventFragmentTitle">Create Event</string>
+
+    <!-- Calendar Events Fragment -->
+    <string name="addEventFabDescription">Add Event</string>
+    <string name="calendarEventsFragmentTitle">Calendar of events</string>
+    <string name="dateMask">##.##.#### ##:##:##</string>
+
+    <!-- Settings Fragment -->
+    <string name="alertBeforeFirstTimeLabel">Alert to start for first time</string>
+    <string name="timeIntervalLabel">Every time before the onset of</string>
+    <string name="timeIntervalStopLabel">Time for stop alerting</string>
+    <string name="soundLabel">Sound</string>
+    <string name="saveSettingsButtonText">Save</string>
+    <string name="defaultSoundText">Alarm</string>
+    <string name="defaultTimeText">00</string>
+    <string name="defaultSeparationTimeText">:</string>
+    <string name="settingsFragmentTitle">Settings</string>
+
+    <!-- Notification Activity -->
+    <string name="alarmIconDescription">Alarm Icon</string>
+    <string name="btnOkRingClockText">OK</string>
+    <string name="datePattern">dd.MM.yyyy HH:mm:ss</string>
+    <string name="desciptionHintText">For example.... Interview</string>
+    <string name="eventNameHintText">Meeting With Boss</string>
+    <string name="settingsMenuItemTitle">Settings</string>
+    <string name="createEventMenuItemTitle">Create event</string>
+    <string name="calendarOfEventsMenuItemTitle">Calendar of events</string>
+    <string name="plugText">No events found</string>
+</resources>

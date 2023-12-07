@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorBackground">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/rlButtons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="@dimen/smallMargin">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/cardViewMargin"
+            app:cardElevation="2dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/llFields"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/llAlertBeforeStartSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/smallMargin"
+                        android:orientation="vertical"
+                        android:padding="@dimen/defaultPadding">
+
+                        <TextView
+                            android:id="@+id/tvAlertBeforeFirstTime"
+                            style="@style/TitleTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/smallMargin"
+                            android:text="@string/alertBeforeFirstTimeLabel" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.github.pinball83.maskededittext.MaskedEditText
+                                android:id="@+id/etAlertBeforeFirstTimeHours"
+                                style="@style/MaskedTextStyle"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/edit_text_background"
+                                android:padding="@dimen/smallPadding"
+                                android:text="@string/defaultTimeText"
+                                app:notMaskedSymbol="*" />
+
+                            <TextView
+                                style="@style/TextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/editTextTimeMargin"
+                                android:layout_marginEnd="@dimen/editTextTimeMargin"
+                                android:text="@string/defaultSeparationTimeText"
+                                android:textSize="@dimen/largeTextSize" />
+
+                            <com.github.pinball83.maskededittext.MaskedEditText
+                                android:id="@+id/etAlertBeforeFirstTimeMinutes"
+                                style="@style/MaskedTextStyle"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/edit_text_background"
+                                android:padding="@dimen/smallPadding"
+                                android:text="@string/defaultTimeText"
+                                app:notMaskedSymbol="*" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llIntervalTimeSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/smallMargin"
+                        android:orientation="vertical"
+                        android:padding="@dimen/defaultPadding">
+
+                        <TextView
+                            android:id="@+id/tvIntervalTime"
+                            style="@style/TitleTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/smallMargin"
+                            android:text="@string/timeIntervalLabel" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.github.pinball83.maskededittext.MaskedEditText
+                                android:id="@+id/etIntervalTimeHours"
+                                style="@style/MaskedTextStyle"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/edit_text_background"
+                                android:padding="@dimen/smallPadding"
+                                android:text="@string/defaultTimeText"
+                                app:notMaskedSymbol="*" />
+
+                            <TextView
+                                style="@style/TextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/editTextTimeMargin"
+                                android:layout_marginEnd="@dimen/editTextTimeMargin"
+                                android:text="@string/defaultSeparationTimeText"
+                                android:textSize="@dimen/largeTextSize" />
+
+                            <com.github.pinball83.maskededittext.MaskedEditText
+                                android:id="@+id/etIntervalTimeMinutes"
+                                style="@style/MaskedTextStyle"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/edit_text_background"
+                                android:padding="@dimen/smallPadding"
+                                android:text="@string/defaultTimeText"
+                                app:notMaskedSymbol="*" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llIntervalTimeStopSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/smallMargin"
+                        android:orientation="vertical"
+                        android:padding="@dimen/defaultPadding">
+
+                        <TextView
+                            android:id="@+id/tvIntervalTimeStop"
+                            style="@style/TitleTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/smallMargin"
+                            android:text="@string/timeIntervalStopLabel" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.github.pinball83.maskededittext.MaskedEditText
+                                android:id="@+id/etIntervalTimeStopHours"
+                                style="@style/MaskedTextStyle"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/edit_text_background"
+                                android:padding="@dimen/smallPadding"
+                                android:text="@string/defaultTimeText"
+                                app:notMaskedSymbol="*" />
+
+                            <TextView
+                                style="@style/TextStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/editTextTimeMargin"
+                                android:layout_marginEnd="@dimen/editTextTimeMargin"
+                                android:text="@string/defaultSeparationTimeText"
+                                android:textSize="@dimen/largeTextSize" />
+
+                            <com.github.pinball83.maskededittext.MaskedEditText
+                                android:id="@+id/etIntervalTimeStopMinutes"
+                                style="@style/MaskedTextStyle"
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/edit_text_background"
+                                android:padding="@dimen/smallPadding"
+                                android:text="@string/defaultTimeText"
+                                app:notMaskedSymbol="*" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llSoundSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/defaultPadding">
+
+                        <TextView
+                            android:id="@+id/llSound"
+                            style="@style/TitleTextStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/smallMargin"
+                            android:text="@string/soundLabel" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilSound"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxStrokeColor="@color/colorAccent"
+                            app:boxStrokeWidth="@dimen/strokeWidthDefault">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/actvSound"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/gilroy_semibold"
+                                android:inputType="none"
+                                android:text="@string/defaultSoundText"
+                                android:textColor="@color/colorText"
+                                android:textSize="@dimen/smallTextSize" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnSaveSettings"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/defaultMargin"
+            android:layout_marginEnd="@dimen/defaultMargin"
+            android:layout_marginBottom="@dimen/defaultMargin"
+            android:text="@string/saveSettingsButtonText" />
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/loading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text dimensions -->
+    <dimen name="titleSize">22sp</dimen>
+    <dimen name="largeTextSize">32sp</dimen>
+    <dimen name="smallTextSize">16sp</dimen>
+    <dimen name="mediumTextSize">28sp</dimen>
+    <dimen name="editTextPadding">22dp</dimen>
+
+    <!-- Margin/Padding deminsions -->
+    <dimen name="defaultPadding">20dp</dimen>
+    <dimen name="defaultMargin">20dp</dimen>
+    <dimen name="smallMargin">12dp</dimen>
+    <dimen name="smallPadding">12dp</dimen>
+    <dimen name="ultraSmallMargin">8dp</dimen>
+    <dimen name="mediumPadding">16dp</dimen>
+    <dimen name="startTextTitlePadding">4dp</dimen>
+    <dimen name="sectionMarginTop">16dp</dimen>
+    <dimen name="editTextTimeMargin">4dp</dimen>
+    <dimen name="cardViewMargin">12dp</dimen>
+
+    <!-- Other -->
+    <dimen name="editTextLineSpacingExtra">8dp</dimen>
+    <dimen name="buttonTextSize">18sp</dimen>
+    <dimen name="defaultRadius">8dp</dimen>
+    <dimen name="strokeWidthDefault">2dp</dimen>
+</resources>
