@@ -41,13 +41,20 @@ class AlertOfEventsCacheRepositoryImpl @Inject constructor(
     override suspend fun getSettings(): Settings {
         val cacheSettings = dataStore.data.map {
             CacheSettings(
-                firstTimeToStart = it[FIRST_TIME_TO_START_KEY] ?: DEFAULT_FIRST_TIME_TO_START,
-                firstTimeToStartEnabled = it[FIRST_TIME_TO_START_ENABLED_KEY] ?: false,
-                timeForStopAlerting = it[TIME_FOR_STOP_ALERTING_KEY] ?: DEFAULT_TIME_FOR_STOP_ALERTING,
-                timeForStopAlertingEnabled = it[TIME_FOR_STOP_ALERTING_ENABLED_KEY] ?: false,
-                beforeOnsetTime = it[BEFORE_ONSET_TIME_KEY] ?: DEFAULT_BEFORE_ONSET_TIME,
-                beforeOnsetTimeEnabled = it[BEFORE_ONSET_TIME_ENABLED_KEY] ?: false,
-                soundName = it[SOUND_NAME_KEY] ?: DEFAULT_SOUND_NAME
+                firstTimeToStart =
+                    it[FIRST_TIME_TO_START_KEY] ?: DEFAULT_FIRST_TIME_TO_START,
+                firstTimeToStartEnabled =
+                    it[FIRST_TIME_TO_START_ENABLED_KEY] ?: false,
+                timeForStopAlerting =
+                    it[TIME_FOR_STOP_ALERTING_KEY] ?: DEFAULT_TIME_FOR_STOP_ALERTING,
+                timeForStopAlertingEnabled =
+                    it[TIME_FOR_STOP_ALERTING_ENABLED_KEY] ?: false,
+                beforeOnsetTime =
+                    it[BEFORE_ONSET_TIME_KEY] ?: DEFAULT_BEFORE_ONSET_TIME,
+                beforeOnsetTimeEnabled =
+                    it[BEFORE_ONSET_TIME_ENABLED_KEY] ?: false,
+                soundName =
+                    it[SOUND_NAME_KEY] ?: DEFAULT_SOUND_NAME
             )
         }.first()
         return cacheSettings.toModel()
