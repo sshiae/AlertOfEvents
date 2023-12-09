@@ -71,7 +71,7 @@ class EventViewModel @AssistedInject constructor(
                 showLoading()
                 if (eventId != DEFAULT_EVENT_ID) {
                     interactor.insertOrUpdateEvent(event.copy(id = eventId))
-                    uiEventChannel.trySend(EventUiEvent.OpenCalendarOfEventsFragment(event.date))
+                    uiEventChannel.trySend(EventUiEvent.OpenCalendarOfEventsFragment)
                 } else {
                     interactor.insertOrUpdateEvent(event.copy(id = null))
                     uiEventChannel.trySend(EventUiEvent.ClearFields)

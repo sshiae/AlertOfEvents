@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <!-- App -->
+    <string name="app_name">Events</string>
     <!-- Create Event Fragment -->
     <string name="eventNameLabel">Event Name</string>
     <string name="descriptionLabel">Description</string>
     <string name="dateLabel">Date</string>
     <string name="remindMeLabel">Remind Me</string>
-    <string name="createEventButtonText">Create Event</string>
-    <string name="createEventFragmentTitle">Create Event</string>
+    <string name="createEventButtonText">Create</string>
+    <string name="saveEventButtonText">Save</string>
+    <string name="cancelSaveEventButtonText">Cancel</string>
+    <string name="eventFragmentTitle">Event</string>
 
     <!-- Calendar Events Fragment -->
     <string name="addEventFabDescription">Add Event</string>
@@ -31,7 +35,7 @@
     <string name="desciptionHintText">For example.... Interview</string>
     <string name="eventNameHintText">Meeting With Boss</string>
     <string name="settingsMenuItemTitle">Settings</string>
-    <string name="createEventMenuItemTitle">Create event</string>
-    <string name="calendarOfEventsMenuItemTitle">Calendar of events</string>
+    <string name="createEventMenuItemTitle">Event</string>
+    <string name="calendarOfEventsMenuItemTitle">Calendar</string>
     <string name="plugText">No events found</string>
 </resources>

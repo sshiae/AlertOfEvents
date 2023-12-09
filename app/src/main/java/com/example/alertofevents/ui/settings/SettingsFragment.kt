@@ -2,6 +2,8 @@ package com.example.alertofevents.ui.settings
 
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import com.example.alertofevents.base.ui.BaseFragment
 import com.example.alertofevents.common.LoadableData
 import com.example.alertofevents.common.extension.getHoursHH
 import com.example.alertofevents.common.extension.getMinutesMM
+import com.example.alertofevents.common.extension.setDisabled
 import com.example.alertofevents.common.extension.setDisplayHomeAsUpEnabled
 import com.example.alertofevents.common.extension.setTitle
 import com.example.alertofevents.common.ui.MessageType
@@ -31,6 +34,13 @@ class SettingsFragment : BaseFragment() {
     private lateinit var binding: SettingsFragmentBinding
 
     private var mediaPlayer: MediaPlayer? = null
+
+    private val hoursTextWatcher by lazy {
+        createTextWatcherForTime(MAX_HOURS_NUMBER)
+    }
+    private val minutesTextWatcher by lazy {
+        createTextWatcherForTime(MAX_MINUTES_NUMBER)
+    }
 
     override val viewModel: SettingsViewModel by viewModels(
         extrasProducer = {
@@ -55,6 +65,7 @@ class SettingsFragment : BaseFragment() {
         setTitle(getString(R.string.settingsFragmentTitle))
         setDisplayHomeAsUpEnabled(false)
         setupSoundsDropdown()
+        setupViews()
     }
 
     override fun subscribeToViewModel() {
@@ -82,18 +93,45 @@ class SettingsFragment : BaseFragment() {
         }
     }
 
+    private fun setupViews() {
+        with(binding) {
+            etAlertBeforeFirstTimeHours.addTextChangedListener(hoursTextWatcher)
+            etAlertBeforeFirstTimeMinutes.addTextChangedListener(minutesTextWatcher)
+            etIntervalTimeHours.addTextChangedListener(hoursTextWatcher)
+            etIntervalTimeMinutes.addTextChangedListener(minutesTextWatcher)
+            etIntervalTimeStopHours.addTextChangedListener(hoursTextWatcher)
+            etIntervalTimeStopMinutes.addTextChangedListener(minutesTextWatcher)
+            cbAlertBeforeFirstTime.setOnClickListener { setupTimeFieldsByCheckBox() }
+            cbIntervalTime.setOnClickListener { setupTimeFieldsByCheckBox() }
+            cbIntervalTimeStop.setOnClickListener { setupTimeFieldsByCheckBox() }
+            btnSaveSettings.setOnClickListener { onClickSaveButton() }
+        }
+    }
+
     private fun render(settings: Settings) {
         with(binding) {
             etAlertBeforeFirstTimeHours.setText(settings.firstTimeToStart.getHoursHH())
             etAlertBeforeFirstTimeMinutes.setText(settings.firstTimeToStart.getMinutesMM())
+            cbAlertBeforeFirstTime.isChecked = settings.firstTimeToStartEnabled
             etIntervalTimeHours.setText(settings.beforeOnsetTime.getHoursHH())
             etIntervalTimeMinutes.setText(settings.beforeOnsetTime.getMinutesMM())
+            cbIntervalTime.isChecked = settings.beforeOnsetTimeEnabled
             etIntervalTimeStopHours.setText(settings.timeForStopAlerting.getHoursHH())
             etIntervalTimeStopMinutes.setText(settings.timeForStopAlerting.getMinutesMM())
+            cbIntervalTimeStop.isChecked = settings.timeForStopAlertingEnabled
             actvSound.setText(settings.soundName, false)
-            btnSaveSettings.setOnClickListener {
-                onClickSaveButton()
-            }
+            setupTimeFieldsByCheckBox()
+        }
+    }
+
+    private fun setupTimeFieldsByCheckBox() {
+        with(binding) {
+            etAlertBeforeFirstTimeHours.setDisabled(cbAlertBeforeFirstTime.isChecked)
+            etAlertBeforeFirstTimeMinutes.setDisabled(cbAlertBeforeFirstTime.isChecked)
+            etIntervalTimeHours.setDisabled(cbIntervalTime.isChecked)
+            etIntervalTimeMinutes.setDisabled(cbIntervalTime.isChecked)
+            etIntervalTimeStopHours.setDisabled(cbIntervalTimeStop.isChecked)
+            etIntervalTimeStopMinutes.setDisabled(cbIntervalTimeStop.isChecked)
         }
     }
 
@@ -108,9 +146,13 @@ class SettingsFragment : BaseFragment() {
                 val timeForStopAlertingMinutes = etIntervalTimeStopMinutes.text.toString()
                 val settings = Settings(
                     firstTimeToStart = LocalTime.parse("$firstTimeToStartHours:$firstTimeToStartMinutes"),
+                    firstTimeToStartEnabled = cbAlertBeforeFirstTime.isChecked,
                     beforeOnsetTime = LocalTime.parse("$beforeOnsetTimeHours:$beforeOnsetTimeMinutes"),
+                    beforeOnsetTimeEnabled = cbIntervalTime.isChecked,
                     timeForStopAlerting = LocalTime.parse("$timeForStopAlertingHours:$timeForStopAlertingMinutes"),
-                    soundName = actvSound.text.toString())
+                    timeForStopAlertingEnabled = cbIntervalTimeStop.isChecked,
+                    soundName = actvSound.text.toString()
+                )
                 viewModel.saveSettings(settings)
             } catch (error: Exception) {
                 showMessageAsDialog(INVALID_DATE_FORMAT_ERROR, MessageType.ERROR)
@@ -151,7 +193,28 @@ class SettingsFragment : BaseFragment() {
         mediaPlayer = null
     }
 
+    private fun createTextWatcherForTime(maxValue: Int): TextWatcher {
+        return object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(editText: Editable?) {
+                if (!editText.isNullOrBlank()) {
+                    val number = editText.toString().toInt()
+                    if (number > maxValue) {
+                        showToast(String.format(TIMES_WARNING, maxValue))
+                        editText.replace(0, editText.length, maxValue.toString())
+                    }
+                }
+            }
+        }
+    }
+
     companion object {
+        const val TIMES_WARNING = "The number should be no more than %s"
         const val INVALID_DATE_FORMAT_ERROR = "Incorrect date format"
+        const val MAX_HOURS_NUMBER = 23
+        const val MAX_MINUTES_NUMBER = 59
     }
 }

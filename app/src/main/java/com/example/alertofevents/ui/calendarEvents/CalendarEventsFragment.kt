@@ -48,11 +48,21 @@ import java.util.Locale
 @AndroidEntryPoint
 class CalendarEventsFragment : BaseFragment() {
 
-    private val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH)
-    private val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy", Locale.ENGLISH)
-    private val selectionFormatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH)
-    private val titleForElementListFormatter = DateTimeFormatter.ofPattern("d MMM yyyy hh:mm:ss", Locale.ENGLISH)
-    private val today = LocalDate.now()
+    private val titleSameYearFormatter by lazy {
+        DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH)
+    }
+    private val titleFormatter by lazy {
+        DateTimeFormatter.ofPattern("MMM yyyy", Locale.ENGLISH)
+    }
+    private val selectionFormatter by lazy {
+        DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH)
+    }
+    private val titleForElementListFormatter by lazy {
+        DateTimeFormatter.ofPattern("d MMM yyyy hh:mm:ss", Locale.ENGLISH)
+    }
+    private val today by lazy {
+        LocalDate.now()
+    }
 
     private val args by navArgs<CalendarEventsFragmentArgs>()
 

@@ -5,7 +5,7 @@
         android:title="@string/calendarOfEventsMenuItemTitle"
         android:icon="@drawable/ic_calendar_foreground"/>
     <item
-        android:id="@+id/navigation_create_event"
+        android:id="@+id/navigation_event"
         android:title="@string/createEventMenuItemTitle"
         android:icon="@drawable/ic_create_event_foreground"/>
     <item

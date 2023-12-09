@@ -2,6 +2,7 @@ package com.example.alertofevents.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -28,13 +29,14 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_calendar_events,
-                R.id.navigation_create_event,
+                R.id.navigation_event,
                 R.id.navigation_settings
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         setNavigationController(navController)
+        installSplashScreen()
     }
 
     private fun setNavigationController(navController: NavController) {

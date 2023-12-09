@@ -7,8 +7,9 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.alertofevents.R
+import com.google.android.material.textfield.TextInputEditText
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 /**
  * Used to set the title for a fragment.
@@ -54,6 +55,19 @@ fun View.makeVisible() {
  */
 fun View.makeInVisible() {
     visibility = View.INVISIBLE
+}
+
+/**
+ * Used to disable/enable the input text
+ */
+fun TextInputEditText.setDisabled(enabled: Boolean) {
+    isEnabled = enabled
+
+    if (enabled) {
+        setBackgroundColor(context.getColorCompat(R.color.colorAccent))
+    } else {
+        setBackgroundColor(context.getColorCompat(R.color.colorGray))
+    }
 }
 
 /**

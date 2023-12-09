@@ -1,11 +1,10 @@
 package com.example.alertofevents.ui.event
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -26,24 +25,22 @@ import com.github.ihermandev.formatwatcher.FormatWatcher
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 @AndroidEntryPoint
 class EventFragment : BaseFragment() {
 
     private lateinit var binding: EventFragmentBinding
 
-    private val args by navArgs<EventFragmentArgs>()
     private val dateFormatWatcher by lazy {
         FormatWatcher(getString(R.string.dateMask),
             placeholderInFormat = '#')
     }
+    private val formatterForDate by lazy {
+        DateTimeFormatter.ofPattern(getString(R.string.datePattern))
+    }
+    private val args by navArgs<EventFragmentArgs>()
 
     override val viewModel: EventViewModel by viewModels(
         extrasProducer = {
@@ -65,8 +62,9 @@ class EventFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setTitle(getString(R.string.createEventFragmentTitle))
+        setTitle(getString(R.string.eventFragmentTitle))
         setDisplayHomeAsUpEnabled(false)
+        setupViews()
     }
 
     override fun subscribeToViewModel() {
@@ -77,6 +75,17 @@ class EventFragment : BaseFragment() {
                     launch { viewModel.eventState.collect(::onViewState) }
                     launch { viewModel.uiEventFlow.collect(::onUiEvent) }
                 }
+            }
+        }
+    }
+
+    private fun setupViews() {
+        with(binding) {
+            btnEvent.setOnClickListener {
+                insertOrUpdateEvent()
+            }
+            btnCancelSave.setOnClickListener {
+                findNavController().popBackStack()
             }
         }
     }
@@ -101,12 +110,8 @@ class EventFragment : BaseFragment() {
                 clearFields()
                 showToast(SUCCESS_CREATE_EVENT_MSG)
             }
-            is EventUiEvent.OpenCalendarOfEventsFragment -> {
-                val day: LocalDate = uiEvent.date.toLocalDate()
-                val month: YearMonth = YearMonth.from(day)
-                val action = EventFragmentDirections.showCalendar(day.toString(), month.toString())
-                findNavController().navigate(action)
-            }
+            is EventUiEvent.OpenCalendarOfEventsFragment ->
+                findNavController().popBackStack()
         }
     }
 
@@ -119,13 +124,11 @@ class EventFragment : BaseFragment() {
             scRemindMe.isChecked = event.remindMe
 
             if (event.id == DEFAULT_EVENT_ID) {
-                btnEvent.text = CREATE_BTN_TEXT
+                btnEvent.text = getString(R.string.createEventButtonText)
+                btnCancelSave.isVisible = false
             } else {
-                btnEvent.text = SAVE_BTN_TEXT
-            }
-
-            btnEvent.setOnClickListener {
-                insertOrUpdateEvent()
+                btnEvent.text = getString(R.string.saveEventButtonText)
+                btnCancelSave.isVisible = true
             }
         }
     }
@@ -162,22 +165,16 @@ class EventFragment : BaseFragment() {
     }
 
     private fun formatDateToString(date: LocalDateTime): String {
-        val pattern = getString(R.string.datePattern)
-        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(pattern)
-        return date.format(formatter)
+        return date.format(formatterForDate)
     }
 
     private fun formatStringToDate(dateString: String): LocalDateTime {
-        val pattern = getString(R.string.datePattern)
-        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(pattern)
-        return LocalDateTime.parse(dateString, formatter)
+        return LocalDateTime.parse(dateString, formatterForDate)
     }
 
     companion object {
         private const val FILL_REQUIRED_FIELDS_MSG = "Be sure to fill in the \"name\" and \"description\" fields"
         private const val FILL_DATE_MSG = "Be sure to fill correct the date"
         private const val SUCCESS_CREATE_EVENT_MSG = "The event was successfully created"
-        private const val CREATE_BTN_TEXT = "Create event"
-        private const val SAVE_BTN_TEXT = "Save"
     }
 }

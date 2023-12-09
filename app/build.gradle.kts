@@ -60,7 +60,6 @@ dependencies {
     val roomVersion = "2.6.1"
     val materialDesign = "1.12.0-alpha01"
     val splashScreen = "1.0.1"
-    val maskEdittext = "1.0.4"
     val calendar = "2.4.0"
     val navVersion = "2.7.5"
     val spinner = "1.4.0"
@@ -109,7 +108,6 @@ dependencies {
     implementation("androidx.core:core-splashscreen:${splashScreen}")
 
     // Views
-    implementation("com.github.pinball83:masked-edittext:${maskEdittext}")
     implementation("com.kizitonwose.calendar:view:${calendar}")
     implementation("com.github.ybq:Android-SpinKit:${spinner}")
     implementation("io.github.ihermandev:format-watcher:1.0.1")

@@ -9,7 +9,6 @@ import com.example.alertofevents.data.local.entity.DatabaseEvent
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.YearMonth
 
 @Dao
 interface AlertOfEventsDao {

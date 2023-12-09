@@ -3,7 +3,6 @@ package com.example.alertofevents.common.converters
 import androidx.room.TypeConverter
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.YearMonth
 
 /**
  * Converter from strings to dates and vise versa

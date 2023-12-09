@@ -2,15 +2,15 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation_create_event">
+    app:startDestination="@id/navigation_event">
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.alertofevents.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="@string/settingsFragmentTitle" />
     <fragment
-        android:id="@+id/navigation_create_event"
+        android:id="@+id/navigation_event"
         android:name="com.example.alertofevents.ui.event.EventFragment"
-        android:label="EventFragment" >
+        android:label="@string/eventFragmentTitle" >
         <action
             android:id="@+id/showCalendar"
             app:destination="@id/navigation_calendar_events" />
@@ -22,10 +22,10 @@
     <fragment
         android:id="@+id/navigation_calendar_events"
         android:name="com.example.alertofevents.ui.calendarEvents.CalendarEventsFragment"
-        android:label="CalendarEventsFragment" >
+        android:label="@string/calendarEventsFragmentTitle" >
         <action
             android:id="@+id/editEvent"
-            app:destination="@id/navigation_create_event" />
+            app:destination="@id/navigation_event" />
         <argument
             android:name="day"
             app:argType="string"
