@@ -16,4 +16,14 @@ interface AlertOfEventsCacheRepository {
      * Used to get the settings
      */
     suspend fun getSettings(): Settings
+
+    /**
+     * To get an indication whether the notification service has been started
+     */
+    suspend fun isWorkerScheduled(): Boolean
+
+    /**
+     * to set the indicator of the neglect of the notification service
+     */
+    suspend fun setWorkerScheduled(workerScheduled: Boolean)
 }

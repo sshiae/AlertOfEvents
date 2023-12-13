@@ -36,21 +36,16 @@ interface AlertOfEventsDao {
     @Query("""
         SELECT   *
         FROM     event_table
+        WHERE    date(date) BETWEEN date(:startDate) AND date(:endDate)
+        ORDER BY date(date) DESC
+        LIMIT    1
+    """)
+    suspend fun getEventByBetween(startDate: LocalDateTime, endDate: LocalDateTime): DatabaseEvent?
+
+    @Query("""
+        SELECT   *
+        FROM     event_table
         WHERE    strftime('%Y-%m', date) = strftime('%Y-%m', :month)
     """)
     fun getEventsByMonth(month: LocalDate): Flow<List<DatabaseEvent>>
-
-    @Query("""
-        SELECT   *
-        FROM     event_table
-        WHERE    date(date) = date(:date)
-    """)
-    fun getEventsByDate(date: LocalDateTime): Flow<List<DatabaseEvent>>
-
-    @Query("""
-        SELECT   *
-        FROM     event_table
-        WHERE    date >= date('now')
-    """)
-    fun getAllEventsAfterCurrentDate(): Flow<List<DatabaseEvent>>
 }

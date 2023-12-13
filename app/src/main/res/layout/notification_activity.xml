@@ -4,40 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/defaultPadding">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tvTitleEvent"
-        style="@style/TitleTextStyle"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="@string/eventNameLabel"
-        android:gravity="center"
+        android:layout_height="match_parent"
+        android:padding="@dimen/defaultPadding">
+
+        <TextView
+            android:id="@+id/tvTitleEvent"
+            style="@style/TitleTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/eventNameLabel"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivRingClock"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:contentDescription="@string/alarmIconDescription"
+            app:layout_constraintBottom_toTopOf="@+id/btnOKRingClock"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleEvent"
+            app:srcCompat="@drawable/ic_alarm_black_24dp" />
+
+        <Button
+            android:id="@+id/btnOKRingClock"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/btnOkRingClockText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        layout="@layout/loading"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivRingClock"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:contentDescription="@string/alarmIconDescription"
-        app:layout_constraintBottom_toTopOf="@+id/btnOKRingClock"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleEvent"
-        app:srcCompat="@drawable/ic_alarm_black_24dp" />
-
-    <Button
-        android:id="@+id/btnOKRingClock"
-        style="@style/ButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/btnOkRingClockText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

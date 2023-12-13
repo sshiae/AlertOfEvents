@@ -56,9 +56,9 @@ dependencies {
     val ktx = "1.12.0"
     val recyclerView = "1.3.2"
     val appcompatAlpha = "1.7.0-alpha03"
-    val materialBeta = "1.12.0-alpha01"
+    val materialBeta = "1.12.0-alpha02"
     val roomVersion = "2.6.1"
-    val materialDesign = "1.12.0-alpha01"
+    val materialDesign = "1.12.0-alpha02"
     val splashScreen = "1.0.1"
     val calendar = "2.4.0"
     val navVersion = "2.7.5"
@@ -66,6 +66,9 @@ dependencies {
     val datastore = "1.1.0-alpha07"
     val junitExt = "1.1.5"
     val espresso = "3.5.1"
+    val workManager = "2.9.0"
+    val formatWatcher = "1.0.1"
+    val coroutines = "1.7.3"
 
     implementation("androidx.core:core-ktx:${ktx}")
     implementation("androidx.appcompat:appcompat:${appcompat}")
@@ -73,6 +76,11 @@ dependencies {
     implementation("com.google.android.material:material:${material}")
     implementation("com.google.android.material:material:${materialBeta}")
     implementation("androidx.constraintlayout:constraintlayout:${constraintlayout}")
+
+    // Coroutines
+    implementation("androidx.work:work-runtime:${workManager}")
+    implementation("androidx.work:work-runtime-ktx:${workManager}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutines}")
 
     // Fragment/ViewModel
     implementation("androidx.fragment:fragment-ktx:${fragment}")
@@ -85,6 +93,9 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:${hiltVersion}")
     kapt("com.google.dagger:hilt-compiler:${hiltVersion}")
+    implementation("androidx.hilt:hilt-common:1.1.0")
+    implementation("androidx.hilt:hilt-work:1.1.0")
+    kapt("androidx.hilt:hilt-compiler:1.1.0")
 
     // Room
     implementation("androidx.room:room-runtime:${roomVersion}")
@@ -110,7 +121,7 @@ dependencies {
     // Views
     implementation("com.kizitonwose.calendar:view:${calendar}")
     implementation("com.github.ybq:Android-SpinKit:${spinner}")
-    implementation("io.github.ihermandev:format-watcher:1.0.1")
+    implementation("io.github.ihermandev:format-watcher:${formatWatcher}")
 
     // JUnit
     testImplementation("junit:junit:${junit}")

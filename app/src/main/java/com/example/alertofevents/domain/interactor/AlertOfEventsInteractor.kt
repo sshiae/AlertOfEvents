@@ -41,15 +41,19 @@ class AlertOfEventsInteractor @Inject constructor(
         return localRepository.getEventsByDay(day)
     }
 
+    suspend fun getEventByBetween(startDate: LocalDateTime, endDate: LocalDateTime): Event? {
+        return localRepository.getEventByBetween(startDate, endDate)
+    }
+
+    suspend fun isWorkerScheduled(): Boolean {
+        return cacheRepository.isWorkerScheduled()
+    }
+
+    suspend fun setIsWorkerScheduled(workerScheduled: Boolean) {
+        cacheRepository.setWorkerScheduled(workerScheduled)
+    }
+
     fun getExistenceEventsByDay(month: YearMonth): Flow<Map<Int, Boolean>> {
         return localRepository.getExistenceEventsByDay(month)
-    }
-
-    fun getEventsByDate(date: LocalDateTime): Flow<List<Event>> {
-        return localRepository.getEventsByDate(date)
-    }
-
-    fun getAllEventsAfterCurrentDate(): Flow<List<Event>> {
-        return localRepository.getAllEventsAfterCurrentDate()
     }
 }

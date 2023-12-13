@@ -217,10 +217,12 @@ class CalendarEventsFragment : BaseFragment() {
 
     private fun showPlug() {
         binding.plug.isVisible = true
+        binding.rvEvents.isVisible = false
     }
 
     private fun hidePlug() {
         binding.plug.isVisible = false
+        binding.rvEvents.isVisible = true
     }
 
     private fun selectDate(day: LocalDate) {

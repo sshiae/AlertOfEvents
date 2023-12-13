@@ -93,66 +93,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llIntervalTimeSection"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/smallMargin"
-                        android:orientation="vertical"
-                        android:padding="@dimen/defaultPadding">
-
-                        <TextView
-                            android:id="@+id/tvIntervalTime"
-                            style="@style/TitleTextStyle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/smallMargin"
-                            android:text="@string/timeIntervalLabel" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etIntervalTimeHours"
-                                style="@style/MaskedTextStyle"
-                                android:layout_width="70dp"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/edit_text_background"
-                                android:padding="@dimen/smallPadding"
-                                android:text="@string/defaultTimeText" />
-
-                            <TextView
-                                style="@style/TextStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/editTextTimeMargin"
-                                android:layout_marginEnd="@dimen/editTextTimeMargin"
-                                android:text="@string/defaultSeparationTimeText"
-                                android:textSize="@dimen/largeTextSize" />
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etIntervalTimeMinutes"
-                                style="@style/MaskedTextStyle"
-                                android:layout_width="70dp"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/edit_text_background"
-                                android:padding="@dimen/smallPadding"
-                                android:text="@string/defaultTimeText" />
-
-                            <CheckBox
-                                android:id="@+id/cbIntervalTime"
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                app:buttonTint="@color/colorAccent"
-                                android:padding="@dimen/smallPadding"
-                                android:checked="true"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:id="@+id/llIntervalTimeStopSection"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -280,6 +220,7 @@
     </RelativeLayout>
 
     <include
+        android:id="@+id/loading"
         layout="@layout/loading"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

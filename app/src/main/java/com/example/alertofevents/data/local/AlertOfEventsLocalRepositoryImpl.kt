@@ -35,12 +35,11 @@ class AlertOfEventsLocalRepositoryImpl @Inject constructor(
         return alertOfEventsDao.getEventsByDay(day).map { it.toModel() }
     }
 
-    override fun getEventsByDate(date: LocalDateTime): Flow<List<Event>> {
-        return alertOfEventsDao.getEventsByDate(date).map { it.toModels() }
-    }
-
-    override fun getAllEventsAfterCurrentDate(): Flow<List<Event>> {
-        return alertOfEventsDao.getAllEventsAfterCurrentDate().map { it.toModels() }
+    override suspend fun getEventByBetween(
+        startDate: LocalDateTime,
+        endDate: LocalDateTime
+    ): Event? {
+        return alertOfEventsDao.getEventByBetween(startDate, endDate)?.toModel()
     }
 
     override fun getExistenceEventsByDay(month: YearMonth): Flow<Map<Int, Boolean>> {

@@ -32,14 +32,9 @@ interface AlertOfEventsLocalRepository {
     suspend fun getEventsByDay(day: LocalDate): List<Event>
 
     /**
-     * Get all [Event]s by [date]
+     * Get events by date in the range from [startDate] to [endDate]
      */
-    fun getEventsByDate(date: LocalDateTime): Flow<List<Event>>
-
-    /**
-     * Get all [Event]s after the current date
-     */
-    fun getAllEventsAfterCurrentDate(): Flow<List<Event>>
+    suspend fun getEventByBetween(startDate: LocalDateTime, endDate: LocalDateTime): Event?
 
     /**
      * Get the existence of events by day
