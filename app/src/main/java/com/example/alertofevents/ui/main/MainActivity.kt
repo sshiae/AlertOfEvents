@@ -1,8 +1,14 @@
 package com.example.alertofevents.ui.main
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -59,11 +65,24 @@ class MainActivity : AppCompatActivity() {
         setNavigationController(navController)
         installSplashScreen()
         subscribeToViewModel()
+        requestPermissions()
     }
 
     override fun onStart() {
         super.onStart()
         viewModel.firstLoad()
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.POST_NOTIFICATIONS,
+                Manifest.permission.VIBRATE,
+                Manifest.permission.WAKE_LOCK,
+            ),
+            1
+        )
     }
 
     private fun setNavigationController(navController: NavController) {

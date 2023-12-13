@@ -34,7 +34,7 @@ class NotificationWorker @AssistedInject constructor(
         val startDate = currentDate.atTime(settings.firstTimeToStart)
         val endDate = startDate.plusMinutes(INACCURACY_MINUTES)
         val foundEvent =  interactor.getEventByBetween(startDate, endDate)
-        if (foundEvent != null) {
+        if (foundEvent != null && foundEvent.remindMe) {
             launchNotification(foundEvent)
         }
         return Result.success()
