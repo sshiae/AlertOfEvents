@@ -80,14 +80,6 @@
                                 android:padding="@dimen/smallPadding"
                                 android:text="@string/defaultTimeText" />
 
-                            <CheckBox
-                                android:id="@+id/cbAlertBeforeFirstTime"
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                app:buttonTint="@color/colorAccent"
-                                android:padding="@dimen/smallPadding"
-                                android:checked="true"/>
-
                         </LinearLayout>
 
                     </LinearLayout>

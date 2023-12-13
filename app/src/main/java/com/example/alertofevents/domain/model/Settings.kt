@@ -7,7 +7,6 @@ import java.time.LocalTime
  */
 data class Settings(
     val firstTimeToStart: LocalTime,
-    val firstTimeToStartEnabled: Boolean,
     val timeForStopAlerting: LocalTime,
     val timeForStopAlertingEnabled: Boolean,
     val soundName: String

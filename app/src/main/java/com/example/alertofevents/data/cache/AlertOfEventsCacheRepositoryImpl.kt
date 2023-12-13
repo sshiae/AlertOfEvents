@@ -24,7 +24,6 @@ class AlertOfEventsCacheRepositoryImpl @Inject constructor(
         val mappedSettings: CacheSettings = settings.toEntity()
         dataStore.edit { prefs ->
             prefs[FIRST_TIME_TO_START_KEY] = mappedSettings.firstTimeToStart
-            prefs[FIRST_TIME_TO_START_ENABLED_KEY] = mappedSettings.firstTimeToStartEnabled
             prefs[TIME_FOR_STOP_ALERTING_KEY] = mappedSettings.timeForStopAlerting
             prefs[TIME_FOR_STOP_ALERTING_ENABLED_KEY] = mappedSettings.timeForStopAlertingEnabled
             prefs[SOUND_NAME_KEY] = mappedSettings.soundName
@@ -36,8 +35,6 @@ class AlertOfEventsCacheRepositoryImpl @Inject constructor(
             CacheSettings(
                 firstTimeToStart =
                     it[FIRST_TIME_TO_START_KEY] ?: DEFAULT_FIRST_TIME_TO_START,
-                firstTimeToStartEnabled =
-                    it[FIRST_TIME_TO_START_ENABLED_KEY] ?: false,
                 timeForStopAlerting =
                     it[TIME_FOR_STOP_ALERTING_KEY] ?: DEFAULT_TIME_FOR_STOP_ALERTING,
                 timeForStopAlertingEnabled =
@@ -64,8 +61,6 @@ class AlertOfEventsCacheRepositoryImpl @Inject constructor(
     companion object {
         private val FIRST_TIME_TO_START_KEY =
             stringPreferencesKey("FIRST_TIME_TO_START_KEY")
-        private val FIRST_TIME_TO_START_ENABLED_KEY =
-            booleanPreferencesKey("FIRST_TIME_TO_START_ENABLED_KEY")
         private val TIME_FOR_STOP_ALERTING_KEY =
             stringPreferencesKey("TIME_FOR_STOP_ALERTING_KEY")
         private val TIME_FOR_STOP_ALERTING_ENABLED_KEY =

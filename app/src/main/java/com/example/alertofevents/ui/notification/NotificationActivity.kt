@@ -7,6 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,17 +19,25 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.alertofevents.R
 import com.example.alertofevents.common.LoadableData
 import com.example.alertofevents.databinding.NotificationActivityBinding
+import com.example.alertofevents.domain.model.Settings
 import com.example.alertofevents.ui.main.NotificationWorker
 import com.example.alertofevents.ui.notification.NotificationViewModel.Companion.DEFAULT_EVENT_ID
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch
+import java.time.LocalTime
+import java.time.temporal.ChronoUnit
 
 
 @AndroidEntryPoint
 class NotificationActivity : AppCompatActivity() {
 
     private var mediaPlayer: MediaPlayer? = null
+    private var handler: Handler? = null
+
+    private val autoCloseRunnable = Runnable {
+        finishNotification()
+    }
 
     private lateinit var binding: NotificationActivityBinding
 
@@ -58,6 +68,7 @@ class NotificationActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         stopPlaying()
+        handler?.removeCallbacks(autoCloseRunnable)
     }
 
     private fun setupViews() {
@@ -101,7 +112,22 @@ class NotificationActivity : AppCompatActivity() {
         with(binding) {
             tvTitleEvent.text = state.event.name
             playSound(state.settings.soundName)
+            startTimer(state.settings)
         }
+    }
+
+    private fun startTimer(settings: Settings) {
+        if (handler == null && settings.timeForStopAlertingEnabled) {
+            val mills: Long = calculateTimeMillis(settings.timeForStopAlerting)
+            handler = Handler(Looper.getMainLooper())
+            handler?.postDelayed(autoCloseRunnable, mills)
+        }
+    }
+
+    private fun calculateTimeMillis(targetTime: LocalTime): Long {
+        val currentTime = LocalTime.now()
+        val secondsUntilTarget = currentTime.until(targetTime, ChronoUnit.SECONDS)
+        return secondsUntilTarget * 1000
     }
 
     private fun animateClock() {

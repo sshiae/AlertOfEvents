@@ -5,7 +5,6 @@ package com.example.alertofevents.data.cache.entity
  */
 data class CacheSettings(
     val firstTimeToStart: String,
-    val firstTimeToStartEnabled: Boolean,
     val timeForStopAlerting: String,
     val timeForStopAlertingEnabled: Boolean,
     val soundName: String

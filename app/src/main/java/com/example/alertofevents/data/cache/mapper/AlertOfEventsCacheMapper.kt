@@ -7,7 +7,6 @@ import java.time.LocalTime
 fun Settings.toEntity(): CacheSettings {
     return CacheSettings(
         firstTimeToStart = firstTimeToStart.toString(),
-        firstTimeToStartEnabled = firstTimeToStartEnabled,
         timeForStopAlerting = timeForStopAlerting.toString(),
         timeForStopAlertingEnabled = timeForStopAlertingEnabled,
         soundName = soundName
@@ -17,7 +16,6 @@ fun Settings.toEntity(): CacheSettings {
 fun CacheSettings.toModel(): Settings {
     return Settings(
         firstTimeToStart = LocalTime.parse(firstTimeToStart),
-        firstTimeToStartEnabled = firstTimeToStartEnabled,
         timeForStopAlerting = LocalTime.parse(timeForStopAlerting),
         timeForStopAlertingEnabled = timeForStopAlertingEnabled,
         soundName = soundName

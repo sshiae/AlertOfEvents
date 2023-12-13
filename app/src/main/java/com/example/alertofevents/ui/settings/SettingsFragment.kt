@@ -105,7 +105,6 @@ class SettingsFragment : BaseFragment() {
             etAlertBeforeFirstTimeMinutes.addTextChangedListener(minutesTextWatcher)
             etIntervalTimeStopHours.addTextChangedListener(hoursTextWatcher)
             etIntervalTimeStopMinutes.addTextChangedListener(minutesTextWatcher)
-            cbAlertBeforeFirstTime.setOnClickListener { setupTimeFieldsByCheckBox() }
             cbIntervalTimeStop.setOnClickListener { setupTimeFieldsByCheckBox() }
             btnSaveSettings.setOnClickListener { onClickSaveButton() }
         }
@@ -115,7 +114,6 @@ class SettingsFragment : BaseFragment() {
         with(binding) {
             etAlertBeforeFirstTimeHours.setText(settings.firstTimeToStart.getHoursHH())
             etAlertBeforeFirstTimeMinutes.setText(settings.firstTimeToStart.getMinutesMM())
-            cbAlertBeforeFirstTime.isChecked = settings.firstTimeToStartEnabled
             etIntervalTimeStopHours.setText(settings.timeForStopAlerting.getHoursHH())
             etIntervalTimeStopMinutes.setText(settings.timeForStopAlerting.getMinutesMM())
             cbIntervalTimeStop.isChecked = settings.timeForStopAlertingEnabled
@@ -126,8 +124,6 @@ class SettingsFragment : BaseFragment() {
 
     private fun setupTimeFieldsByCheckBox() {
         with(binding) {
-            etAlertBeforeFirstTimeHours.setDisabled(cbAlertBeforeFirstTime.isChecked)
-            etAlertBeforeFirstTimeMinutes.setDisabled(cbAlertBeforeFirstTime.isChecked)
             etIntervalTimeStopHours.setDisabled(cbIntervalTimeStop.isChecked)
             etIntervalTimeStopMinutes.setDisabled(cbIntervalTimeStop.isChecked)
         }
@@ -145,9 +141,10 @@ class SettingsFragment : BaseFragment() {
                 val timeForStopAlertingHours = etIntervalTimeStopHours.text.toString()
                 val timeForStopAlertingMinutes = etIntervalTimeStopMinutes.text.toString()
                 val settings = Settings(
-                    firstTimeToStart = LocalTime.parse("$firstTimeToStartHours:$firstTimeToStartMinutes"),
-                    firstTimeToStartEnabled = cbAlertBeforeFirstTime.isChecked,
-                    timeForStopAlerting = LocalTime.parse("$timeForStopAlertingHours:$timeForStopAlertingMinutes"),
+                    firstTimeToStart =
+                        LocalTime.parse("$firstTimeToStartHours:$firstTimeToStartMinutes"),
+                    timeForStopAlerting =
+                        LocalTime.parse("$timeForStopAlertingHours:$timeForStopAlertingMinutes"),
                     timeForStopAlertingEnabled = cbIntervalTimeStop.isChecked,
                     soundName = actvSound.text.toString()
                 )
@@ -164,7 +161,6 @@ class SettingsFragment : BaseFragment() {
             val firstTimeToStartMinutes = etAlertBeforeFirstTimeMinutes.text.toString()
             val timeForStopAlertingHours = etIntervalTimeStopHours.text.toString()
             val timeForStopAlertingMinutes = etIntervalTimeStopMinutes.text.toString()
-
             if (firstTimeToStartHours.isEmpty() ||
                 firstTimeToStartMinutes.isEmpty() ||
                 timeForStopAlertingHours.isEmpty() ||
@@ -174,10 +170,11 @@ class SettingsFragment : BaseFragment() {
             }
 
             val parsedFirstTimeToStartMinutes = firstTimeToStartMinutes.toInt()
-            val parsedTimeForStopAlerting = timeForStopAlertingMinutes.toInt()
-            if (parsedFirstTimeToStartMinutes % STEP_FOR_MINUTES != 0 ||
-                parsedTimeForStopAlerting % STEP_FOR_MINUTES != 0) {
-                showMessageAsDialog(String.format(STEP_WARNING, STEP_FOR_MINUTES), MessageType.ERROR)
+            if (parsedFirstTimeToStartMinutes % STEP_FOR_MINUTES != 0) {
+                showMessageAsDialog(
+                    String.format(STEP_FIRST_TIME_TO_START_WARNING, STEP_FOR_MINUTES),
+                    MessageType.ERROR
+                )
                 return true
             }
 
@@ -239,8 +236,10 @@ class SettingsFragment : BaseFragment() {
     companion object {
         const val FILL_FIELDS_ERROR_MSG = "Fill in all the fields!"
         const val TIMES_WARNING = "The number should be no more than %s"
-        const val STEP_WARNING = "The minutes must be a multiple of %s"
-        const val INVALID_DATE_FORMAT_ERROR = "Incorrect date format"
+        const val STEP_FIRST_TIME_TO_START_WARNING =
+            "The minutes of alert to start for first time be a multiple of %s"
+        const val INVALID_DATE_FORMAT_ERROR =
+            "Incorrect date format. The format for the date: HH:MM"
         const val MAX_HOURS_NUMBER = 23
         const val MAX_MINUTES_NUMBER = 59
         const val STEP_FOR_MINUTES = 15

@@ -31,7 +31,7 @@ class NotificationWorker @AssistedInject constructor(
     override suspend fun doWork(): Result {
         val settings: Settings = interactor.getSettings()
         val currentDate = LocalDate.now()
-        val startDate = currentDate.atTime(settings.firstTimeToStart)
+        val startDate = currentDate.atTime(settings.firstTimeToStart).minusMinutes(INACCURACY_MINUTES)
         val endDate = startDate.plusMinutes(INACCURACY_MINUTES)
         val foundEvent =  interactor.getEventByBetween(startDate, endDate)
         if (foundEvent != null && foundEvent.remindMe) {
