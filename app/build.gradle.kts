@@ -109,9 +109,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:${navVersion}")
     implementation("androidx.navigation:navigation-ui-ktx:${navVersion}")
 
-    // Picasso
-    implementation("com.squareup.picasso:picasso:${picasso}")
-
     // Material Design
     implementation("com.google.android.material:material:${materialDesign}")
 
