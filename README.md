@@ -131,7 +131,7 @@ This app uses **MVVM (Model View View-Model)** architecture.
  <img src="images/architecture.png">
 </div>
 
-### Contacts
+## Contacts
 
 - [Telegram](https://t.me/DrawableRes)
 - [VK](https://vk.com/shiae)
