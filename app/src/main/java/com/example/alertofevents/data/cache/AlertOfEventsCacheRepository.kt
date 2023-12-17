@@ -1,11 +1,17 @@
 package com.example.alertofevents.data.cache
 
 import com.example.alertofevents.domain.model.Settings
+import kotlinx.coroutines.flow.Flow
 
 /**
  * A repository for working with the cache
  */
 interface AlertOfEventsCacheRepository {
+
+    /**
+     * Used to get settings as Flow
+     */
+    fun getSettingsFlow(): Flow<Settings>
 
     /**
      * Used to save settings
@@ -16,14 +22,4 @@ interface AlertOfEventsCacheRepository {
      * Used to get the settings
      */
     suspend fun getSettings(): Settings
-
-    /**
-     * To get an indication whether the notification service has been started
-     */
-    suspend fun isWorkerScheduled(): Boolean
-
-    /**
-     * to set the indicator of the neglect of the notification service
-     */
-    suspend fun setWorkerScheduled(workerScheduled: Boolean)
 }

@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel(assistedFactory = EventViewModel.Factory::class)
 class EventViewModel @AssistedInject constructor(
     private val interactor: AlertOfEventsInteractor,
-    @Assisted private val eventId: Long
+    @Assisted private var eventId: Long
 ) : BaseViewModel() {
 
     @AssistedFactory
@@ -50,11 +50,12 @@ class EventViewModel @AssistedInject constructor(
         viewModelScope.launch {
             try {
                 eventStateFlow.emitLoading()
-                if (eventId != DEFAULT_EVENT_ID) {
+                if (interactor.existsEventById(eventId)) {
                     val foundEvent = interactor.getEventById(eventId)
                     eventStateFlow.emitSuccess(foundEvent)
                 } else {
-                    eventStateFlow.emitSuccess(Event(id = DEFAULT_EVENT_ID))
+                    eventId = DEFAULT_EVENT_ID
+                    eventStateFlow.emitSuccess(Event(id = eventId))
                 }
             } catch (error: Exception) {
                 eventStateFlow.emitError(error)
@@ -69,7 +70,7 @@ class EventViewModel @AssistedInject constructor(
         viewModelScope.launch {
             try {
                 showLoading()
-                if (eventId != DEFAULT_EVENT_ID) {
+                if (interactor.existsEventById(eventId)) {
                     interactor.insertOrUpdateEvent(event.copy(id = eventId))
                     uiEventChannel.trySend(EventUiEvent.OpenCalendarOfEventsFragment)
                 } else {

@@ -11,12 +11,9 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.alertofevents.R
 import com.example.alertofevents.common.LoadableData
 import com.example.alertofevents.databinding.NotificationActivityBinding
 import com.example.alertofevents.domain.model.Settings
@@ -87,24 +84,22 @@ class NotificationActivity : AppCompatActivity() {
     private fun subscribeToViewModel() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch { viewModel.loadingState.collect(::onLoadingStateChanged) }
                 launch { viewModel.viewState.collect(::onViewState) }
             }
         }
     }
 
-    private fun onLoadingStateChanged(loading: Boolean) {
-        findViewById<ConstraintLayout>(R.id.loading).isVisible = loading
-    }
-
     private fun onViewState(state: LoadableData<NotificationViewState>) {
         when(state) {
             is LoadableData.Success -> {
-                viewModel.hideLoading()
                 render(state.value)
             }
-            is LoadableData.Loading -> viewModel.showLoading()
-            is LoadableData.Error -> viewModel.hideLoading()
+            is LoadableData.Loading -> {
+                // ignored
+            }
+            is LoadableData.Error -> {
+                // ignored
+            }
         }
     }
 
@@ -112,11 +107,11 @@ class NotificationActivity : AppCompatActivity() {
         with(binding) {
             tvTitleEvent.text = state.event.name
             playSound(state.settings.soundName)
-            startTimer(state.settings)
+            startHandlerForStopTimer(state.settings)
         }
     }
 
-    private fun startTimer(settings: Settings) {
+    private fun startHandlerForStopTimer(settings: Settings) {
         if (handler == null && settings.timeForStopAlertingEnabled) {
             val mills: Long = calculateTimeMillis(settings.timeForStopAlerting)
             handler = Handler(Looper.getMainLooper())

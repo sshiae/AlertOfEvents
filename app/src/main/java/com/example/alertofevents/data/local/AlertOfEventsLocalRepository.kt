@@ -27,6 +27,11 @@ interface AlertOfEventsLocalRepository {
     suspend fun getEventById(id: Long): Event
 
     /**
+     * Does the event exist by ID
+     */
+    suspend fun existsEventById(id: Long): Boolean
+
+    /**
      * Used to get an event by [day]
      */
     suspend fun getEventsByDay(day: LocalDate): List<Event>

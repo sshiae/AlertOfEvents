@@ -3,7 +3,6 @@ package com.example.alertofevents.data.local
 import com.example.alertofevents.data.local.dao.AlertOfEventsDao
 import com.example.alertofevents.data.local.mapper.toEntity
 import com.example.alertofevents.data.local.mapper.toModel
-import com.example.alertofevents.data.local.mapper.toModels
 import com.example.alertofevents.domain.model.Event
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -29,6 +28,10 @@ class AlertOfEventsLocalRepositoryImpl @Inject constructor(
 
     override suspend fun getEventById(id: Long): Event {
         return alertOfEventsDao.getEventById(id).toModel()
+    }
+
+    override suspend fun existsEventById(id: Long): Boolean {
+        return alertOfEventsDao.existsEventById(id)
     }
 
     override suspend fun getEventsByDay(day: LocalDate): List<Event> {

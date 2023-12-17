@@ -17,6 +17,10 @@ class AlertOfEventsInteractor @Inject constructor(
     private val localRepository: AlertOfEventsLocalRepository,
     private val cacheRepository: AlertOfEventsCacheRepository
 ) {
+    fun getSettingsFlow(): Flow<Settings> {
+        return cacheRepository.getSettingsFlow()
+    }
+
     suspend fun insertOrUpdateEvent(event: Event) {
         localRepository.insertOrUpdateEvent(event)
     }
@@ -27,6 +31,10 @@ class AlertOfEventsInteractor @Inject constructor(
 
     suspend fun getEventById(id: Long): Event {
         return localRepository.getEventById(id)
+    }
+
+    suspend fun existsEventById(id: Long): Boolean {
+        return localRepository.existsEventById(id)
     }
 
     suspend fun saveSettings(settings: Settings) {
@@ -43,14 +51,6 @@ class AlertOfEventsInteractor @Inject constructor(
 
     suspend fun getEventByBetween(startDate: LocalDateTime, endDate: LocalDateTime): Event? {
         return localRepository.getEventByBetween(startDate, endDate)
-    }
-
-    suspend fun isWorkerScheduled(): Boolean {
-        return cacheRepository.isWorkerScheduled()
-    }
-
-    suspend fun setIsWorkerScheduled(workerScheduled: Boolean) {
-        cacheRepository.setWorkerScheduled(workerScheduled)
     }
 
     fun getExistenceEventsByDay(month: YearMonth): Flow<Map<Int, Boolean>> {

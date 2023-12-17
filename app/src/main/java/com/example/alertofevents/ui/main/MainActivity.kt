@@ -1,14 +1,10 @@
 package com.example.alertofevents.ui.main
 
 import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,17 +15,15 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequest
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
 import com.example.alertofevents.R
 import com.example.alertofevents.common.LoadableData
 import com.example.alertofevents.databinding.ActivityMainBinding
+import com.example.alertofevents.domain.model.Settings
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.launch
+import java.time.LocalTime
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -101,21 +95,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onViewState(state: LoadableData<Boolean>) {
+    private fun onViewState(state: LoadableData<Settings>) {
         when(state) {
             is LoadableData.Success -> {
-                val isWorkerScheduled = state.value
-                if (!isWorkerScheduled) {
-                    val periodicWork: PeriodicWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
-                        NotificationWorker.EXECUTION_FREQUENCY_MINUTES,
-                        TimeUnit.MINUTES
-                    ).build()
-                    WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
-                        "myAlarm",
-                        ExistingPeriodicWorkPolicy.UPDATE,
-                        periodicWork)
-                    viewModel.setIsWorkerScheduled(true)
-                }
+                val settings: Settings = state.value
+                val firstTimeToStart: LocalTime = settings.firstTimeToStart
+                val minutes = (firstTimeToStart.hour * 60) + firstTimeToStart.minute
+                NotificationWorker.scheduleWork(
+                    applicationContext,
+                    minutes.toLong(),
+                    TimeUnit.MINUTES
+                )
             }
             is LoadableData.Loading -> {
                 // ignored

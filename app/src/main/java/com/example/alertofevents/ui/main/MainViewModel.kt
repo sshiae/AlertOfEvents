@@ -7,6 +7,7 @@ import com.example.alertofevents.common.emitError
 import com.example.alertofevents.common.emitLoading
 import com.example.alertofevents.common.emitSuccess
 import com.example.alertofevents.domain.interactor.AlertOfEventsInteractor
+import com.example.alertofevents.domain.model.Settings
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +28,7 @@ class MainViewModel @AssistedInject constructor(
     /**
      * [Flow] to get an indication whether the notification service has been started
      */
-    private val viewStateFlow: MutableStateFlow<LoadableData<Boolean>> =
+    private val viewStateFlow: MutableStateFlow<LoadableData<Settings>> =
         MutableStateFlow(LoadableData.Loading())
     val viewState = viewStateFlow.asStateFlow()
 
@@ -35,19 +36,12 @@ class MainViewModel @AssistedInject constructor(
         viewModelScope.launch {
             try {
                 viewStateFlow.emitLoading()
-                viewStateFlow.emitSuccess(interactor.isWorkerScheduled())
+                interactor.getSettingsFlow().collect { settings ->
+                    viewStateFlow.emitSuccess(settings)
+                }
             } catch (error: Exception) {
                 viewStateFlow.emitError(error)
             }
-        }
-    }
-
-    /**
-     * To set the indicator of the neglect of the notification service
-     */
-    fun setIsWorkerScheduled(workerScheduled: Boolean) {
-        viewModelScope.launch {
-            interactor.setIsWorkerScheduled(workerScheduled)
         }
     }
 }

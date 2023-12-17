@@ -10,6 +10,9 @@ import android.media.RingtoneManager
 import androidx.core.app.NotificationCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.example.alertofevents.R
 import com.example.alertofevents.domain.interactor.AlertOfEventsInteractor
@@ -18,7 +21,9 @@ import com.example.alertofevents.domain.model.Settings
 import com.example.alertofevents.ui.notification.NotificationActivity
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.util.concurrent.TimeUnit
 
 
 @HiltWorker
@@ -30,10 +35,12 @@ class NotificationWorker @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         val settings: Settings = interactor.getSettings()
-        val currentDate = LocalDate.now()
-        val startDate = currentDate.atTime(settings.firstTimeToStart).minusMinutes(INACCURACY_MINUTES)
-        val endDate = startDate.plusMinutes(INACCURACY_MINUTES)
-        val foundEvent =  interactor.getEventByBetween(startDate, endDate)
+        val firstTimeToStart: LocalTime = settings.firstTimeToStart
+        val minutesForStart: Long = ((firstTimeToStart.hour * 60) + firstTimeToStart.minute).toLong()
+        val currentDate = LocalDateTime.now()
+        val startDate: LocalDateTime = currentDate.plusMinutes(minutesForStart - INACCURACY_MINUTES)
+        val endDate: LocalDateTime = currentDate.plusMinutes(minutesForStart + INACCURACY_MINUTES)
+        val foundEvent = interactor.getEventByBetween(startDate, endDate)
         if (foundEvent != null && foundEvent.remindMe) {
             launchNotification(foundEvent)
         }
@@ -66,12 +73,28 @@ class NotificationWorker @AssistedInject constructor(
     }
 
     companion object {
+        private const val WORK_NAME = "NotificationWorker"
+
         const val CHANNEL_ID = "1"
         const val CHANNEL_NAME = "Notification"
-        const val EXECUTION_FREQUENCY_MINUTES = 15L
-        const val INACCURACY_MINUTES = 2L
+        const val INACCURACY_MINUTES = 1L
         const val DEFAULT_EVENT_ID = -1L
         const val NOTIFICATION_ID = 1
         const val CONTENT_TEXT_NOTIFICATION = "Ring Ring .. Ring Ring"
+
+        fun scheduleWork(
+            applicationContext: Context,
+            repeatInterval: Long,
+            repeatIntervalTimeUnit: TimeUnit
+        ) {
+            val periodicWork = PeriodicWorkRequestBuilder<NotificationWorker>(
+                repeatInterval,
+                repeatIntervalTimeUnit)
+                .build()
+            WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+                WORK_NAME,
+                ExistingPeriodicWorkPolicy.UPDATE,
+                periodicWork)
+        }
     }
 }

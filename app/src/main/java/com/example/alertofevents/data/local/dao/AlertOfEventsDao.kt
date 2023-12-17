@@ -27,6 +27,16 @@ interface AlertOfEventsDao {
     suspend fun getEventById(id: Long): DatabaseEvent
 
     @Query("""
+        SELECT   
+            EXISTS (
+                SELECT  NULL
+                FROM    event_table 
+                WHERE   id = :id
+            )
+    """)
+    suspend fun existsEventById(id: Long): Boolean
+
+    @Query("""
         SELECT   *
         FROM     event_table
         WHERE    strftime('%Y-%m-%d', date) = strftime('%Y-%m-%d', :day)

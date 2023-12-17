@@ -169,12 +169,10 @@ class SettingsFragment : BaseFragment() {
                 return true
             }
 
+            val parsedFirstTimeToStartHours = firstTimeToStartHours.toInt()
             val parsedFirstTimeToStartMinutes = firstTimeToStartMinutes.toInt()
-            if (parsedFirstTimeToStartMinutes % STEP_FOR_MINUTES != 0) {
-                showMessageAsDialog(
-                    String.format(STEP_FIRST_TIME_TO_START_WARNING, STEP_FOR_MINUTES),
-                    MessageType.ERROR
-                )
+            if ((parsedFirstTimeToStartHours * 60) + parsedFirstTimeToStartMinutes < MIN_TIME_NUMBER) {
+                showMessageAsDialog(MIN_TIME_NUMBER_WARNING, MessageType.ERROR)
                 return true
             }
 
@@ -236,12 +234,12 @@ class SettingsFragment : BaseFragment() {
     companion object {
         const val FILL_FIELDS_ERROR_MSG = "Fill in all the fields!"
         const val TIMES_WARNING = "The number should be no more than %s"
-        const val STEP_FIRST_TIME_TO_START_WARNING =
-            "The minutes of alert to start for first time be a multiple of %s"
+        const val MIN_TIME_NUMBER_WARNING =
+            "The time before the first launch should not be less than 15 minutes"
         const val INVALID_DATE_FORMAT_ERROR =
             "Incorrect date format. The format for the date: HH:MM"
         const val MAX_HOURS_NUMBER = 23
         const val MAX_MINUTES_NUMBER = 59
-        const val STEP_FOR_MINUTES = 15
+        const val MIN_TIME_NUMBER = 15
     }
 }
